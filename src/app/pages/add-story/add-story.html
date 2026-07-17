@@ -1,18 +1,97 @@
-<p>add-story works!</p>
-<h2>Thêm truyện tranh</h2>
+<h1>Reactive Forms - Lab 4</h1>
 
-<form [formGroup]="addForm" (ngSubmit)="submitForm()">
-    <div>
-        <label>Tên truyện</label>
-        <input type="text" formControlName="title">
-    </div>
-    <div>
-        <label>Tác giả</label>
-        <input type="text" formControlName="author">
-    </div>
-    <div>
-        <label>Lượt xem</label>
-        <input type="number" formControlName="views">
-    </div>
-    <button type="submit">Thêm truyện</button>
-</form>
+<!-- ==================== Bài 1 ==================== -->
+
+<div class="card">
+  <h2>Bài 1 - Thêm Product</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+    <label>Tên sản phẩm</label>
+
+    <input type="text" formControlName="name" />
+
+    @if (name?.invalid && name?.touched) {
+      <p class="error">Tên sản phẩm bắt buộc</p>
+    }
+
+    <label>Giá</label>
+
+    <input type="number" formControlName="price" />
+
+    @if (price?.invalid && price?.touched) {
+      <p class="error">Giá phải lớn hơn 0</p>
+    }
+
+    <label>Danh mục</label>
+
+    <input type="text" formControlName="category" />
+
+    <button type="submit" [disabled]="productForm.invalid">Thêm Product</button>
+  </form>
+
+  <pre>{{ productForm.value | json }}</pre>
+</div>
+
+<!-- ==================== Bài 2 ==================== -->
+
+<div class="card">
+  <h2>Bài 2 - Đăng ký tài khoản</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+    <label>Username</label>
+
+    <input type="text" formControlName="username" />
+
+    @if (username?.invalid && username?.touched) {
+      <p class="error">Username bắt buộc</p>
+    }
+
+    <label>Email</label>
+
+    <input type="email" formControlName="email" />
+
+    @if (email?.invalid && email?.touched) {
+      <p class="error">Email bắt buộc</p>
+    }
+
+    <label>Password</label>
+
+    <input type="password" formControlName="password" />
+
+    @if (password?.invalid && password?.touched) {
+      <p class="error">Password phải từ 6 ký tự</p>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid">Đăng ký</button>
+  </form>
+
+  <pre>{{ registerForm.value | json }}</pre>
+</div>
+
+<!-- ==================== Bài 3 ==================== -->
+
+<div class="card">
+  <h2>Bài 3 - Validation với get()</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <label>Username</label>
+
+    <input type="text" formControlName="username" />
+
+    @if (loginUsername?.invalid && loginUsername?.touched) {
+      <p class="error">Username không được để trống</p>
+    }
+
+    <label>Password</label>
+
+    <input type="password" formControlName="password" />
+
+    @if (loginPassword?.invalid && loginPassword?.touched) {
+      <p class="error">Password không hợp lệ</p>
+    }
+
+    <button type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+  </form>
+
+  <pre>{{ loginForm.value | json }}</pre>
+</div>
