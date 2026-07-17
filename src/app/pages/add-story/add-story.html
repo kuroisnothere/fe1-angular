@@ -1,38 +1,35 @@
 <h1>Reactive Forms - Lab 4</h1>
 
-<!-- ==================== Bài 1 ==================== -->
-
 <div class="card">
-  <h2>Bài 1 - Thêm Product</h2>
+  <h2>Bài 1 - Thêm truyện</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
-    <label>Tên sản phẩm</label>
+    <label>Tên truyện</label>
+    <input type="text" formControlName="title" />
 
-    <input type="text" formControlName="name" />
-
-    @if (name?.invalid && name?.touched) {
-      <p class="error">Tên sản phẩm bắt buộc</p>
+    @if (title?.invalid && title?.touched) {
+      <p class="error">Tên truyện bắt buộc</p>
     }
 
-    <label>Giá</label>
+    <label>Tác giả</label>
+    <input type="text" formControlName="author" />
 
-    <input type="number" formControlName="price" />
-
-    @if (price?.invalid && price?.touched) {
-      <p class="error">Giá phải lớn hơn 0</p>
+    @if (author?.invalid && author?.touched) {
+      <p class="error">Tác giả bắt buộc</p>
     }
 
-    <label>Danh mục</label>
-
+    <label>Thể loại</label>
     <input type="text" formControlName="category" />
 
-    <button type="submit" [disabled]="productForm.invalid">Thêm Product</button>
+    @if (category?.invalid && category?.touched) {
+      <p class="error">Thể loại bắt buộc</p>
+    }
+
+    <button type="submit" [disabled]="productForm.invalid">Thêm truyện</button>
   </form>
 
   <pre>{{ productForm.value | json }}</pre>
 </div>
-
-<!-- ==================== Bài 2 ==================== -->
 
 <div class="card">
   <h2>Bài 2 - Đăng ký tài khoản</h2>
@@ -67,8 +64,6 @@
 
   <pre>{{ registerForm.value | json }}</pre>
 </div>
-
-<!-- ==================== Bài 3 ==================== -->
 
 <div class="card">
   <h2>Bài 3 - Validation với get()</h2>

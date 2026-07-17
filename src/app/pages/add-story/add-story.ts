@@ -6,55 +6,55 @@ import {
   Validators,
 } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-add-story',
   imports: [ReactiveFormsModule, JsonPipe],
+
   templateUrl: './add-story.html',
   styleUrl: './add-story.css',
 })
 export class AddStory {
-  // Bài 1
+  success = '';
   productForm: FormGroup;
 
-  // Bài 2
   registerForm: FormGroup;
 
-  // Bài 3
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    // Bài 1
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+  ) {
     this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      price: ['', Validators.min(1)],
+      title: ['', Validators.required],
+      author: ['', Validators.required],
       category: [''],
     });
 
-    // Bài 2
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    // Bài 3
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  // Product
-  get name() {
-    return this.productForm.get('name');
+  get title() {
+    return this.productForm.get('title');
   }
 
-  get price() {
-    return this.productForm.get('price');
+  get author() {
+    return this.productForm.get('author');
+  }
+  get category() {
+    return this.productForm.get('category');
   }
 
-  // Register
   get username() {
     return this.registerForm.get('username');
   }
@@ -67,7 +67,6 @@ export class AddStory {
     return this.registerForm.get('password');
   }
 
-  // Login
   get loginUsername() {
     return this.loginForm.get('username');
   }
@@ -78,6 +77,14 @@ export class AddStory {
 
   submitProduct() {
     console.log(this.productForm.value);
+    this.http
+      .post(`http://localhost:3000/stories`, this.productForm.value)
+      .subscribe({
+        next: () => {
+          this.success = 'thêm truyện thành công';
+          this.productForm.reset();
+        },
+      });
   }
 
   submitRegister() {

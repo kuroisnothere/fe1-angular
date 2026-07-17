@@ -4,6 +4,7 @@ import { About } from './pages/about/about';
 import { Contact } from './pages/contact/contact';
 import { Stories } from './pages/stories/stories';
 import { AddStory } from './pages/add-story/add-story';
+import { Story } from './pages/story/story';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -14,4 +15,5 @@ export const routes: Routes = [
 
   // Buổi 4
   { path: 'add-story', component: AddStory },
+  { path: 'story', component: Story },
 ];

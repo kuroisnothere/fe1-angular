@@ -1,18 +1,64 @@
-<p>stories works!</p>
-<h2>Danh sách truyện tranh</h2>
+<h2>Danh sách truyện</h2>
 
-@for (story of stories; track story.title) {
-
-<div class="story-card">
-    <h3>{{ story.title }}</h3>
-
-    <p>Tác giả: {{ story.author }}</p>
-
-    <p>Lượt xem: {{ story.views }}</p>
-
-    @if (story.views > 80000) {
-        <p>Truyện nổi bật</p>
-    }
-</div>
-
+@if (loading) {
+  <p>Đang tải dữ liệu...</p>
 }
+
+@if (error) {
+  <p style="color: red">
+    {{ error }}
+  </p>
+}
+
+<table>
+  <tr>
+    <th>ID</th>
+
+    <th>Hình ảnh</th>
+
+    <th>Tên truyện</th>
+
+    <th>Tác giả</th>
+
+    <th>Lượt xem</th>
+
+    <th>HOT</th>
+
+    <th>Hành động</th>
+  </tr>
+
+  @for (story of stories; track story.id) {
+    <tr>
+      <td>{{ story.id }}</td>
+
+      <td>
+        <img [src]="story.image" alt="{{ story.title }}" class="story-image" />
+      </td>
+
+      <td>{{ story.title }}</td>
+
+      <td>{{ story.author }}</td>
+
+      <td>{{ story.views }}</td>
+
+      <td>
+        @if (story.views > 90000) {
+          🔥 HOT
+        }
+      </td>
+
+      <td>
+        <button
+          (click)="deleteStory(story.id)"
+          [disabled]="deletingId === story.id"
+        >
+          @if (deletingId === story.id) {
+            Đang xóa...
+          } @else {
+            Xóa
+          }
+        </button>
+      </td>
+    </tr>
+  }
+</table>

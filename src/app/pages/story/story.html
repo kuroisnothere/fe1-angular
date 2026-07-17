@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="card">
+    <h2>📚 Bài 1 - Thêm Story</h2>
+
+    <form [formGroup]="storyForm" (ngSubmit)="submitStory()">
+      <label>Tên truyện</label>
+      <input
+        type="text"
+        placeholder="Nhập tên truyện"
+        formControlName="title"
+      />
+
+      @if (storyForm.get("title")?.invalid && storyForm.get("title")?.touched) {
+        <small class="error"> Tên truyện không được để trống </small>
+      }
+
+      <label>Tác giả</label>
+      <input
+        type="text"
+        placeholder="Nhập tên tác giả"
+        formControlName="author"
+      />
+
+      <label>Lượt xem</label>
+      <input
+        type="number"
+        placeholder="Nhập lượt xem"
+        formControlName="views"
+      />
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? "Đang gửi..." : "Thêm Story" }}
+      </button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>🛒 Bài 2 - Thêm Product</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+      <label>Tên sản phẩm</label>
+      <input
+        type="text"
+        placeholder="Nhập tên sản phẩm"
+        formControlName="name"
+      />
+
+      <label>Giá sản phẩm</label>
+      <input type="number" placeholder="Nhập giá" formControlName="price" />
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? "Đang gửi..." : "Thêm Product" }}
+      </button>
+    </form>
+  </div>
+
+  @if (success) {
+    <p class="success">
+      {{ success }}
+    </p>
+  }
+
+  @if (error) {
+    <p class="error-message">
+      {{ error }}
+    </p>
+  }
+</div>
